@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 
 
-
-
-<html>
-
-
-<head>
 <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-
-
-
-
 <body>
-    
      <nav>
         <ul>
             <li> <a href="/">Home</a></li>
@@ -26,22 +17,16 @@
         </ul>
     </nav>
 
-   {% block content %}
-    <!-- hero section -->
-    <section class="hero">
-        <div class="hero__content">
-            <h1> Project Unge Toner</h1>
-            <p>Et par .</p>
-        </div>
-    </section>
-
-   {% endblock %}
-
-
-
+    <main class="page-shell">
+       {% block content %}
+        <!-- hero section -->
+        <section class="hero">
+            <div class="hero__content">
+                <h1> Project Unge Toner</h1>
+                <p>Et par .</p>
+            </div>
+        </section>
+       {% endblock %}
+    </main>
 </body>
-
-
-
-
 </html>

@@ -1,3 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4efe8;
+    color: #222;
+}
+
 nav {
     background-color: #333;
     overflow: hidden;
@@ -36,12 +47,37 @@ nav a:hover {
     color: black;
 }
 
+.page-shell {
+    padding: 28px 16px 48px;
+}
+
+.page-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.page-title {
+    margin: 0 0 12px;
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: #1f1f1f;
+}
+
+.page-copy {
+    margin: 0 0 12px;
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
 /* hero section image should have text on it */
 .hero {
     background-image: url('image.png/Violin_Image.jpg');
     background-size: cover;
     background-position: center;
-    min-height: 100vh;
+    min-height: 88vh;
     display: flex;
     justify-content: center;
     align-items: center;
