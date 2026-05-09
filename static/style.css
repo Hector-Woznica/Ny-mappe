@@ -39,10 +39,6 @@ body > main {
     flex: 1;
 }
 
-.site-footer {
-    margin-top: auto;
-}
-
 body::before {
     content: '';
     position: fixed;
@@ -134,7 +130,7 @@ nav a:focus-visible {
     text-align: center;
     padding: 4rem 1.5rem;
     position: relative;
-    border-radius: 0 0 36px 36px;
+    border-radius: 36px 36px 36px 36px;
     overflow: hidden;
 }
 
@@ -208,9 +204,10 @@ nav a:focus-visible {
 }
 
 .site-footer {
-    width: 100%;
-    margin-top: 48px;
-    padding: 42px 24px;
+    width: calc(100% - 48px);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    border-radius: 36px;
     background: #2b241f;
     color: #f2e9de;
 }
@@ -237,6 +234,12 @@ nav a:focus-visible {
 }
 
 @media (max-width: 720px) {
+    .site-footer {
+        width: calc(100% - 32px);
+        margin: 0 auto;
+        padding: 2rem 1.25rem;
+    }
+
     .footer-inner {
         flex-direction: column;
         align-items: flex-start;
