@@ -1,129 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+
+:root {
+    color-scheme: light;
+    --bg: #f7f2ec;
+    --surface: rgba(255, 255, 255, 0.92);
+    --text: #1f1a16;
+    --muted: #61564d;
+    --border: rgba(97, 86, 77, 0.16);
+    --accent: #8f5c3f;
+    --accent-strong: #6f4330;
+}
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+html,
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4efe8;
-    color: #222;
+    min-height: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #fffaf3 0%, #f4ebe3 42%, #ece0d6 100%);
+    color: var(--text);
+}
+
+body > main {
+    flex: 1;
+}
+
+.site-footer {
+    margin-top: auto;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.6), transparent 35%);
+    pointer-events: none;
 }
 
 nav {
-    background-color: #333;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-around;
-
-    
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(28, 24, 21, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(21, 19, 17, 0.12);
 }
-
 
 nav ul {
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+    margin: 0;
+    padding: 0 24px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    align-items: center;
+    min-height: 64px;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    color: #f4efe8;
     text-decoration: none;
-    font-size: 17px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+    border-radius: 999px;
 }
 
-
-nav ul a {
-    color: white;
-    text-decoration: none;
-}
-
-
-nav ul li {
-    list-style-type: none;
-    display: inline-block;
-    padding: 14px 16px;
-}
-
-
-
-nav a:hover {
-    background-color: #ddd;
-    color: black;
+nav a:hover,
+nav a:focus-visible {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transform: translateY(-1px);
 }
 
 .page-shell {
-    padding: 28px 16px 48px;
+    padding: 32px 24px 24px;
 }
 
 .page-card {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 28px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    padding: 32px 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(69, 54, 44, 0.08);
 }
 
 .page-title {
-    margin: 0 0 12px;
-    font-size: clamp(2rem, 3vw, 3rem);
-    color: #1f1f1f;
+    margin: 0 0 18px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.2rem, 3vw, 3.4rem);
+    line-height: 1.05;
+    color: #211813;
 }
 
 .page-copy {
-    margin: 0 0 12px;
-    line-height: 1.7;
+    margin: 0 0 18px;
+    line-height: 1.85;
     font-size: 1.05rem;
+    color: var(--muted);
 }
 
-/* hero section image should have text on it */
 .hero {
-    background-image: url('image.png/Violin_Image.jpg');
-    background-size: cover;
-    background-position: center;
-    min-height: 88vh;
+    background: linear-gradient(180deg, rgba(20, 16, 14, 0.24), rgba(20, 16, 14, 0.24)),
+        url('../static/image.png/Violin_Image.jpg') center/cover no-repeat;
+    min-height: 66vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #f7f1e9;
     text-align: center;
-    padding: 0 50px;
+    padding: 4rem 1.5rem;
     position: relative;
+    border-radius: 0 0 36px 36px;
+    overflow: hidden;
 }
 
 .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(18, 14, 12, 0.38);
 }
 
 .hero__content {
     position: relative;
-    max-width: 780px;
+    max-width: 760px;
     width: 100%;
-    padding: 20px;
+    padding: 18px;
 }
 
 .hero__content h1 {
-    margin: 0px 0 16px;
-    font-size: clamp(2.5rem, 4vw, 4.5rem);
-    line-height: 1.05;
-    font-weight: 800;
+    margin: 0 0 18px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.04em;
 }
 
 .hero__content p {
-    margin: 0 0 24px;
+    margin: 0 auto 28px;
+    max-width: 620px;
     font-size: 1.1rem;
-    line-height: 1.8;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
+    line-height: 1.9;
+    color: rgba(247, 241, 233, 0.93);
 }
 
 .hero__cta {
-    display: inline-block;
-    background-color: #ff6b00;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent);
     color: white;
     text-decoration: none;
-    padding: 14px 28px;
-    border-radius: 30px;
+    padding: 14px 32px;
+    border-radius: 999px;
     font-weight: 700;
-    transition: background-color 0.25s ease;
+    box-shadow: 0 14px 30px rgba(143, 92, 63, 0.22);
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.hero__cta:hover,
+.hero__cta:focus-visible {
+    background-color: var(--accent-strong);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 720px) {
+    .page-shell {
+        padding: 24px 16px 36px;
+    }
+    .page-card {
+        padding: 26px 24px;
+    }
+    .hero {
+        min-height: 62vh;
+        padding: 3.5rem 1.25rem;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+.site-footer {
+    width: 100%;
+    margin-top: 48px;
+    padding: 42px 24px;
+    background: #2b241f;
+    color: #f2e9de;
+}
+
+.footer-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.footer-contact {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(242, 233, 222, 0.95);
+}
+
+.footer-contact + .footer-contact {
+    margin-top: 8px;
+}
+
+@media (max-width: 720px) {
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

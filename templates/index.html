@@ -1,32 +1,39 @@
 <!DOCTYPE html>
-
-
-<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Unge Toner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-     <nav>
+    <nav>
         <ul>
-            <li> <a href="/">Home</a></li>
-            <li> <a href="/about">About</a></li>
-            <li> <a href="/schedule">Schedule</a></li>
-            <li> <a href="/contact">Contact</a></li>
-            <li> <a href="/statistics">Statistics</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/schedule">Schedule</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/statistics">Statistics</a></li>
         </ul>
     </nav>
 
     <main class="page-shell">
-       {% block content %}
-        <!-- hero section -->
+        {% block content %}
         <section class="hero">
             <div class="hero__content">
-                <h1> Project Unge Toner</h1>
-                <p>Et par .</p>
+                <h1>Project Unge Toner</h1>
+                <p>A group of 8th graders giving back to the community with music.</p>
+                <a class="hero__cta" href="/about">About Us</a>
             </div>
         </section>
-       {% endblock %}
+        {% endblock %}
     </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <p class="footer-contact">Email: hector@woznica.com</p>
+            <p class="footer-contact">Phone: +45 50 70 10 30</p>
+        </div>
+    </footer>
 </body>
 </html>
