@@ -11,7 +11,7 @@
 		<div class="schedule-card">
 			<button class="schedule-header" onclick="toggleSchedule(this)">
 				<span> {{ slot.strftime('%A, %d %B') }} </span>
-				<span class="toggle-icon">^</span>
+				<span class="toggle-icon">+</span>
 			</button>
 			<div class="time-grid" style="display: none;">
 				<div class="time-column">
@@ -40,3 +40,19 @@
 </section>
 
 {% endblock %}
+
+<script>
+function toggleSchedule(header) {
+	const card = header.parentElement;
+	const timeGrid = card.querySelector('.time-grid');
+	const icon = header.querySelector('.toggle-icon');
+	
+	if (timeGrid.style.display === 'none') {
+		timeGrid.style.display = 'grid';
+		icon.textContent = '−';
+	} else {
+		timeGrid.style.display = 'none';
+		icon.textContent = '+';
+	}
+}
+</script>
