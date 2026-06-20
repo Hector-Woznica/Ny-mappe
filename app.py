@@ -209,7 +209,14 @@ def schedule_fun():
         notify_new_booking(booking)
         return render_template("booking_success.html", booking_id=booking_id)
 
-    return render_template("schedule.html", availability=availability)
+    return render_template(
+        "schedule.html",
+        availability=availability,
+        errors=[],
+        selected_date=selected_date,
+        selected_time=selected_time,
+        form_data=form_data
+    )
 
 @app.route("/contact")
 def contact_fun():
