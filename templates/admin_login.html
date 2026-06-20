@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block content %}
+<section class="page-card">
+    <h1 class="page-title">Admin Login</h1>
+    <p class="page-copy">Enter the admin password to view and manage bookings.</p>
+
+    {% if error %}
+    <div class="error-message">
+        <strong>{{ error }}</strong>
+    </div>
+    {% endif %}
+
+    <form method="POST" class="booking-form">
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn-submit">Login</button>
+    </form>
+</section>
+{% endblock %}

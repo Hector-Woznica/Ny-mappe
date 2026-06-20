@@ -12,13 +12,17 @@ class CalendarSystem:
         self.calender_setup(num_weeks)
        
     def calender_setup(self, num_weeks):
-       # loop for making dictionary of dates and time slots
+       # loop for making dictionary of dates and time slots for FUTURE dates only
         self.calendar = {}
-        previous_saturday = self.today - timedelta(days=self.today.weekday() + 2)  # Get the previous Saturday
-        previous_sunday = previous_saturday + timedelta(days=1)  # Get the following Sunday
-        for i in range(num_weeks+1):
-            saturday = previous_saturday + timedelta(days=i * 7)
-            sunday = previous_sunday + timedelta(days=i * 7)
+        # Find the next Saturday
+        days_until_saturday = (5 - self.today.weekday()) % 7
+        if days_until_saturday == 0:
+            days_until_saturday = 7
+        next_saturday = self.today + timedelta(days=days_until_saturday)
+        
+        for i in range(num_weeks):
+            saturday = next_saturday + timedelta(days=i * 7)
+            sunday = saturday + timedelta(days=1)
             self.calendar[saturday] = self.time_slots.copy()
             self.calendar[sunday] = self.time_slots.copy()
 

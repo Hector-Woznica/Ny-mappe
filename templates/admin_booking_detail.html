@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+
+{% block content %}
+<section class="page-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+        <div>
+            <h1 class="page-title">Booking Detail</h1>
+            <p class="page-copy">Review the full booking request and update its status.</p>
+        </div>
+        <a href="/admin/dashboard" class="btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="page-copy" style="margin-bottom:24px;">
+        <strong>Booking ID:</strong> {{ booking.booking_id }}<br>
+        <strong>Status:</strong> {{ booking.status }}<br>
+        <strong>Created at:</strong> {{ booking.created_at }}<br>
+        <strong>Last updated:</strong> {{ booking.updated_at }}
+    </div>
+
+    <div class="bookings-table" style="margin-bottom:24px;">
+        <table>
+            <tbody>
+                <tr><th>Nursing Home</th><td>{{ booking.nursing_home_name }}</td></tr>
+                <tr><th>Location</th><td>{{ booking.location }}</td></tr>
+                <tr><th>Booking Date</th><td>{{ booking.booking_date }}</td></tr>
+                <tr><th>Booking Time</th><td>{{ booking.booking_time }}</td></tr>
+                <tr><th>Service Type</th><td>{{ booking.service_type }}</td></tr>
+                <tr><th>Email</th><td>{{ booking.contact_email }}</td></tr>
+                <tr><th>Phone</th><td>{{ booking.contact_phone }}</td></tr>
+                <tr><th>Special Notes</th><td>{{ booking.special_notes or 'None' }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <form method="POST" action="/admin/booking/{{ booking.booking_id }}/status" style="display:inline-block;">
+            <input type="hidden" name="status" value="accepted">
+            <button type="submit" class="btn-accept">Accept</button>
+        </form>
+        <form method="POST" action="/admin/booking/{{ booking.booking_id }}/status" style="display:inline-block;">
+            <input type="hidden" name="status" value="declined">
+            <button type="submit" class="btn-decline">Decline</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

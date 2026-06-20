@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+
+{% block content %}
+<section class="page-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+        <div>
+            <h1 class="page-title">Admin Dashboard</h1>
+            <p class="page-copy">Review and manage incoming booking requests.</p>
+        </div>
+        <div>
+            <a href="/admin/bookings/export" class="btn-secondary">Export CSV</a>
+            <a href="/admin/logout" class="btn-secondary">Logout</a>
+        </div>
+    </div>
+
+    <form method="GET" class="admin-filter" style="margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="flex:1; min-width:220px;">
+            <label for="search">Search</label>
+            <input type="search" id="search" name="search" value="{{ search }}" placeholder="Search by home, location, service, email">
+        </div>
+        <div class="form-group" style="min-width:180px;">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="all" {% if status_filter == 'all' or not status_filter %}selected{% endif %}>All</option>
+                <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="accepted" {% if status_filter == 'accepted' %}selected{% endif %}>Accepted</option>
+                <option value="declined" {% if status_filter == 'declined' %}selected{% endif %}>Declined</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-primary">Filter</button>
+    </form>
+
+    <div class="bookings-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nursing Home</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.booking_id }}</td>
+                    <td>{{ booking.nursing_home_name }}</td>
+                    <td>{{ booking.location }}</td>
+                    <td>{{ booking.booking_date }}</td>
+                    <td>{{ booking.booking_time }}</td>
+                    <td>{{ booking.service_type }}</td>
+                    <td>{{ booking.status }}</td>
+                    <td>{{ booking.created_at }}</td>
+                    <td>
+                        <a href="/admin/booking/{{ booking.booking_id }}" class="btn-secondary">View</a>
+                        <form method="POST" action="/admin/booking/{{ booking.booking_id }}/status" style="display:inline-block;">
+                            <input type="hidden" name="status" value="accepted">
+                            <button type="submit" class="btn-accept">Accept</button>
+                        </form>
+                        <form method="POST" action="/admin/booking/{{ booking.booking_id }}/status" style="display:inline-block;">
+                            <input type="hidden" name="status" value="declined">
+                            <button type="submit" class="btn-decline">Decline</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="9" style="text-align:center; padding:24px; color:var(--muted);">No bookings yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

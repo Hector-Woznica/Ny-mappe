@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<section class="page-card">
+	<div style="text-align: center;">
+		<div style="font-size: 60px; margin: 20px 0;">✓</div>
+		<h1 class="page-title">Booking Submitted!</h1>
+		<p class="page-copy">Thank you for requesting a performance from Unge Toner.</p>
+		
+		<div class="booking-id-box">
+			<p>Your Booking ID:</p>
+			<div class="booking-id">{{ booking_id }}</div>
+		</div>
+
+		<p class="page-copy">We will review your request and contact you soon at the email and phone number you provided.</p>
+
+		<div style="margin-top: 30px;">
+			<a href="/" class="btn-primary">Return to Home</a>
+			<a href="/schedule" class="btn-secondary">Make Another Booking</a>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

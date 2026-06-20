@@ -4,39 +4,122 @@
 
 <section class="page-card">
 	<h1 class="page-title">Schedule</h1>
-	<p class="page-copy">Here you can add upcoming visits, rehearsals, or performance dates.</p>
 
-	<div class="schedule-grid">
-		{% for slot in availability %}
-		<div class="schedule-card">
-			<button class="schedule-header" onclick="toggleSchedule(this)">
-				<span> {{ slot.strftime('%A, %d %B') }} </span>
-				<span class="toggle-icon">^</span>
-			</button>
-			<div class="time-grid" style="display: none;">
-				<div class="time-column">
-					{% for hour in [12, 13, 14, 15] %}
-						{% if availability[slot].get(hour) %}
-							<button class="time-button"> {{ hour }}:00 </button>
+	{% if errors %}
+	<div class="error-message">
+		<strong>Please fix the following:</strong>
+		<ul>
+			{% for error in errors %}
+			<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+
+	<div id="calendar-section" style="{% if selected_date or errors %}display: none;{% endif %}">
+		<div class="schedule-grid">
+			{% for date in availability|sort %}
+			<div class="schedule-card">
+				<div class="schedule-date">
+					{{ date.strftime('%A') }}
+				</div>
+				<div class="schedule-date-info">
+					{{ date.strftime('%d %B %Y') }}
+				</div>
+				<div class="schedule-times">
+					{% for hour in [12, 13, 14, 15, 16, 17, 18, 19] %}
+						{% if availability[date].get(hour) %}
+						<button type="button" class="time-slot available" onclick="selectDateTime('{{ date }}', '{{ hour }}:00')">{{ hour }}:00</button>
 						{% else %}
-							<button class="time-button" disabled> {{ hour }}:00 </button>
+							<span class="time-slot booked">{{ hour }}:00</span>
 						{% endif %}
 					{% endfor %}
 				</div>
-				<div class="time-column">
-					{% for hour in [16, 17, 18, 19] %}
-						{% if availability[slot].get(hour) %}
-							<button class="time-button"> {{ hour }}:00 </button>
-						{% else %}
-							<button class="time-button" disabled> {{ hour }}:00 </button>
-						{% endif %}
-					{% endfor %}
-				</div>
+				<button class="btn-book" onclick="selectDate('{{ date }}')">Book This Date</button>
 			</div>
+			{% endfor %}
 		</div>
-		{% endfor %}
 	</div>
 
+	<div id="form-section" style="{% if selected_date or errors %}display: block;{% else %}display: none;{% endif %}">
+		<form method="POST" class="booking-form">
+			<div class="form-group">
+				<label for="booking_date">Selected Date:</label>
+				<input type="text" id="display_date" readonly style="background: #f5f5f5;" value="{{ selected_date or '' }}">
+				<input type="hidden" id="booking_date" name="booking_date" value="{{ selected_date or '' }}">
+			</div>
+
+			<div class="form-group">
+				<label for="booking_time">Selected Time:</label>
+				<input type="text" id="booking_time" name="booking_time" placeholder="Write a time or click a slot above" required value="{{ selected_time or '' }}">
+			</div>
+
+			<div class="form-group">
+				<label for="nursing_home">Nursing Home Name *</label>
+				<input type="text" id="nursing_home" name="nursing_home" required value="{{ form_data.nursing_home or '' }}">
+			</div>
+
+			<div class="form-group">
+				<label for="location">Location *</label>
+				<input type="text" id="location" name="location" placeholder="City and address" required value="{{ form_data.location or '' }}">
+			</div>
+
+			<div class="form-group">
+				<label for="service_type">Service Type *</label>
+				<select id="service_type" name="service_type" required>
+					<option value="">-- Select a service --</option>
+					<option value="classical" {% if form_data.service_type == 'classical' %}selected{% endif %}>Classical Music Performance</option>
+					<option value="ensemble" {% if form_data.service_type == 'ensemble' %}selected{% endif %}>Chamber Ensemble</option>
+					<option value="solo" {% if form_data.service_type == 'solo' %}selected{% endif %}>Solo Violin</option>
+					<option value="custom" {% if form_data.service_type == 'custom' %}selected{% endif %}>Custom Request</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="contact_email">Email Address *</label>
+				<input type="email" id="contact_email" name="contact_email" required value="{{ form_data.contact_email or '' }}">
+			</div>
+
+			<div class="form-group">
+				<label for="contact_phone">Phone Number *</label>
+				<input type="tel" id="contact_phone" name="contact_phone" required value="{{ form_data.contact_phone or '' }}">
+			</div>
+
+			<div class="form-group">
+				<label for="notes">Special Notes (Optional)</label>
+				<textarea id="notes" name="notes" rows="4" placeholder="Any special requests...">{{ form_data.notes or '' }}</textarea>
+			</div>
+
+			<div class="form-buttons">
+				<button type="button" class="btn-cancel" onclick="goBack()">Back to Calendar</button>
+				<button type="submit" class="btn-submit">Submit Booking</button>
+			</div>
+		</form>
+	</div>
+<script>
+function selectDate(dateStr) {
+	document.getElementById('booking_date').value = dateStr;
+	document.getElementById('display_date').value = dateStr;
+	document.getElementById('booking_time').value = '';
+	document.getElementById('calendar-section').style.display = 'none';
+	document.getElementById('form-section').style.display = 'block';
+	window.scrollTo(0, 0);
+}
+
+function selectDateTime(dateStr, timeStr) {
+	document.getElementById('booking_date').value = dateStr;
+	document.getElementById('display_date').value = dateStr;
+	document.getElementById('booking_time').value = timeStr;
+	document.getElementById('calendar-section').style.display = 'none';
+	document.getElementById('form-section').style.display = 'block';
+	window.scrollTo(0, 0);
+}
+
+function goBack() {
+	document.getElementById('calendar-section').style.display = 'block';
+	document.getElementById('form-section').style.display = 'none';
+}
+</script>
 </section>
 
 {% endblock %}
